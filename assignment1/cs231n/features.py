@@ -1,6 +1,7 @@
 import matplotlib
 import numpy as np
 from scipy.ndimage import uniform_filter
+from scipy.fftpack import dct
 
 
 def extract_features(imgs, feature_fns, verbose=False):
@@ -144,5 +145,12 @@ def color_histogram_hsv(im, nbin=10, xmin=0, xmax=255, normalized=True):
   # return histogram
   return imhist
 
+
+def image_dct(im):
+    dct_im = dct(im[:,:,0])[:8, :8].flatten()
+    dct_im = np.append(dct_im, dct(im[:,:,1])[:8, :8].flatten())
+    dct_im = np.append(dct_im, dct(im[:,:,2])[:8, :8].flatten())
+    return dct_im
+    
 
 pass
